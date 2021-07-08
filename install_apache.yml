@@ -14,7 +14,7 @@
     when: ansible_distribution == "Ubuntu"
  
   - name: install apache and php for CentOS servers
-    dnf:
+    yum:
       name:
         - httpd
         - php
