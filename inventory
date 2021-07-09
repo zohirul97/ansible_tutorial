@@ -1,6 +1,6 @@
 [web_servers]
 10.0.0.67
-10.0.0.75
+10.0.0.75 ansible_connect=ssh ansible_user=zohirul
 
 [db_servers]
 10.0.0.65
