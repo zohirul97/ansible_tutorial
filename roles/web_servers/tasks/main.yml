@@ -1,30 +1,17 @@
-- name: install apache and php for Ubuntu servers
-  tags: apache,apache2,ubuntu
-  apt:
+- name: install apache and php for packages
+  tags: apache,apache2,ubuntu,centos,httpd
+  package:
     name:
-      - apache2
-      - libapache2-mod-php
+      - "{{ apachepackage_name }}"
+      - "{{ php_package_name }}"
     state: latest
-    update_cache: yes
-  when: ansible_distribution == "Ubuntu"
  
-- name: install apache and php for CentOS servers
-  tags: apache,centos,httpd
-  yum:
-    name:
-      - httpd
-      - php
-    state: latest
-    update_cache: yes
-  when: ansible_distribution == "CentOS"
-
-- name: start httpd (CentOS)
-  tags: apache,centos,httpd
+- name: start and enable apache service
+  tags: apache,httpd
   service:
-    name: httpd
+    name: "{{ apache_service }}"
     state: started
     enabled: yes
-  when: ansible_distribution == "CentOS"
 
 - name: change e-mail address for admin
   tags: apache,centos,httpd
