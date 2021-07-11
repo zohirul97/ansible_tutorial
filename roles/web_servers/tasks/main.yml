@@ -2,7 +2,7 @@
   tags: apache,apache2,ubuntu,centos,httpd
   package:
     name:
-      - "{{ apachepackage_name }}"
+      - "{{ apache_package_name }}"
       - "{{ php_package_name }}"
     state: latest
  
@@ -18,16 +18,9 @@
   lineinfile:
     path: /etc/httpd/conf/httpd.conf
     regexp: '^ServerAdmin'
-    line: ServerAdmin somebody@somewhere.net
+    line: ServerAdmin somebody@somewhere.com
   when: ansible_distribution == "CentOS"
-  register: httpd
-
-- name: restart httpd (CentOS)
-  tags: apache,centos,httpd
-  service:
-    name: httpd
-    state: restarted
-  when: httpd.changed  
+  notify: restart_apache
 
 - name: copy default html file for site
   tags: apache,apache2, httpd
